@@ -1,4 +1,5 @@
-import React from 'react';
+//import React from 'react';
+import React, { useEffect, useState } from "react"; 
 import ReactDOM from 'react-dom';
 import {compose} from 'redux';
 
@@ -6,6 +7,8 @@ import AppStateHOC from '../lib/app-state-hoc.jsx';
 import GUI from '../containers/gui.jsx';
 import HashParserHOC from '../lib/hash-parser-hoc.jsx';
 import log from '../lib/log.js';
+
+import Jcodepage from '../lib/jcodepage.js';
 
 const onClickLogo = () => {
     window.location = 'https://scratch.mit.edu';
@@ -60,7 +63,7 @@ export default appTarget => {
         // Warn before navigating away
         window.onbeforeunload = () => true;
     }
-
+/*
     ReactDOM.render(
         // important: this is checking whether `simulateScratchDesktop` is truthy, not just defined!
         simulateScratchDesktop ?
@@ -76,10 +79,44 @@ export default appTarget => {
             <WrappedGui
                 canEditTitle
                 backpackVisible
-                showComingSoon
+                //showComingSoon // tomioy 2023.01.11 commnet out
                 backpackHost={backpackHost}
                 canSave={false}
-                onClickLogo={onClickLogo}
+                onClickLogo={onClickLogo} 
             />,
         appTarget);
-};
+*/
+/*
+        ReactDOM.render(
+            <React.StrictMode>
+              <Jcodepage />
+            </React.StrictMode>,
+            appTarget);
+*/
+
+
+function App() { 
+const [count, setCount] = useState(0); 
+useEffect(() => { 
+const interval = setInterval(() => { 
+setCount(c => c + 1); 
+}, 1000); 
+return () => clearInterval(interval); 
+}, []); 
+if (count > 10) { 
+window.location.href = "https://j-code.org" 
+} 
+}
+
+            ReactDOM.render(
+                <WrappedGui
+                canEditTitle
+                backpackVisible
+                backpackHost={backpackHost}
+                canSave={false}
+                onClickLogo={onClickLogo} />
+                , 
+                appTarget);
+
+    };
+
